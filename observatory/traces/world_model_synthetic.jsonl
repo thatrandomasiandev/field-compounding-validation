@@ -1,0 +1,6 @@
+{"battery_pct": 72.0, "cmd_latency_ms": 85.0, "false_positive_rate": 0.09, "gnss_drift": 2.1, "loop_node": "world_model", "recovery": true, "timestamp": "2025-05-18T15:40:00Z", "violation_severity": 0.38}
+{"battery_pct": 58.0, "cmd_latency_ms": 140.0, "false_positive_rate": 0.11, "gnss_drift": 3.4, "loop_node": "world_model", "recovery": true, "timestamp": "2025-05-18T15:48:10Z", "violation_severity": 0.52}
+{"battery_pct": 41.0, "cmd_latency_ms": 210.0, "false_positive_rate": 0.13, "gnss_drift": 4.8, "loop_node": "world_model", "recovery": false, "timestamp": "2025-05-18T15:55:22Z", "violation_severity": 0.63}
+{"battery_pct": 33.0, "cmd_latency_ms": 280.0, "false_positive_rate": 0.15, "gnss_drift": 5.9, "loop_node": "world_model", "recovery": false, "timestamp": "2025-05-18T16:02:47Z", "violation_severity": 0.71}
+{"battery_pct": 26.0, "cmd_latency_ms": 320.0, "false_positive_rate": 0.17, "gnss_drift": 6.7, "loop_node": "world_model", "recovery": false, "timestamp": "2025-05-18T16:11:05Z", "violation_severity": 0.79}
+{"battery_pct": 19.0, "cmd_latency_ms": 390.0, "false_positive_rate": 0.19, "gnss_drift": 7.5, "loop_node": "world_model", "recovery": false, "timestamp": "2025-05-18T16:19:33Z", "violation_severity": 0.86}

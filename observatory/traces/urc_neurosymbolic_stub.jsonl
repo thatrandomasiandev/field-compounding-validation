@@ -1,0 +1,4 @@
+{"false_positive_rate": 0.10, "gnss_drift": 3.7, "loop_node": "neurosymbolic", "recovery": true, "timestamp": "2025-05-18T17:14:06Z", "violation_severity": 0.51}
+{"false_positive_rate": 0.12, "gnss_drift": 4.2, "loop_node": "neurosymbolic", "recovery": false, "timestamp": "2025-05-18T17:22:11Z", "violation_severity": 0.58}
+{"false_positive_rate": 0.08, "gnss_drift": 2.9, "loop_node": "neurosymbolic", "recovery": true, "timestamp": "2025-05-18T17:31:44Z", "violation_severity": 0.44}
+{"false_positive_rate": 0.06, "gnss_drift": 1.9, "loop_node": "scene_repr", "recovery": true, "timestamp": "2025-05-18T15:22:55Z", "violation_severity": 0.28}

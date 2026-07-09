@@ -1,0 +1,43 @@
+module_id: 12
+module_name: "Neurosymbolic Visual Task Planning (Field)"
+loop_node: neurosymbolic
+dgp:
+  class: "field_compounding.data.neurosymbolic_field_dgp.NeurosymbolicFieldDGP"
+  params:
+    trace_path: "observatory/traces/urc_neurosymbolic_stub.jsonl"
+    gnss_drift_scale: 1.0
+    field_blend: 0.35
+    n_objects: 80
+    n_tasks: 20
+    n_atoms: 8
+    n_formulas: 6
+models:
+  - name: "SymbolicSolver"
+    class: "field_compounding.models.neurosymbolic_field.SymbolicSolverField"
+    params: {}
+  - name: "BeamSearch"
+    class: "field_compounding.models.neurosymbolic_field.BeamSearchSynthesizerField"
+    params:
+      beam_width: 100
+      max_depth: 5
+  - name: "DiffReasoner"
+    class: "field_compounding.models.neurosymbolic_field.DifferentiableReasonerField"
+    params:
+      semantics: "product"
+      lr: 0.01
+      n_steps: 500
+  - name: "NTP"
+    class: "field_compounding.models.neurosymbolic_field.NeuralTheoremProverField"
+    params:
+      embed_dim: 32
+      tau: 1.0
+      lr: 1.0e-3
+      epochs: 100
+evaluation:
+  metrics: ["accuracy", "solve_rate", "formula_mse", "proof_accuracy"]
+  n_trials: 20
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+violation_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+violation_sweep:
+  knob: "violation_severity"
+  values: [0.0, 0.25, 0.5, 0.75, 1.0]
