@@ -12,8 +12,14 @@ import numpy as np
 from field_compounding.data.base import BenchmarkData
 from field_compounding.evaluation.metrics import normalized_score
 try:
+    from cv_robotics.models.flow_policy import FlowMatchingPolicy
+    from cv_robotics.models.gnn import GNNTrainer
+    from cv_robotics.models.meta_learners import CATEMetrics
     from cv_robotics.models.ssl import SSLConfig, evaluate_ssl
 except ImportError:
+    FlowMatchingPolicy = None  # type: ignore[misc, assignment]
+    GNNTrainer = None  # type: ignore[misc, assignment]
+    CATEMetrics = None  # type: ignore[misc, assignment]
     SSLConfig = None
     evaluate_ssl = None
 
