@@ -1,6 +1,6 @@
-"""Field trace-backed data generating processes."""
+"""Trace-backed and hybrid field data generating processes."""
 
 from field_compounding.data.base import BaseFieldDGP, BenchmarkData
-from field_compounding.data.neurosymbolic_field_dgp import NeurosymbolicFieldDGP
+from field_compounding.data.world_model_field_dgp import WorldModelFieldDGP
 
-__all__ = ["BaseFieldDGP", "BenchmarkData", "NeurosymbolicFieldDGP"]
+__all__ = ["BaseFieldDGP", "BenchmarkData", "WorldModelFieldDGP"]
