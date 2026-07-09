@@ -46,6 +46,38 @@ python scripts/run_compound_field_experiment.py --n-trials 20
 python scripts/validate_results.py --min-trials 20
 ```
 
+## Colab CLI (GPU from terminal)
+
+Install [Google Colab CLI](https://github.com/googlecolab/google-colab-cli):
+
+```bash
+uv tool install git+https://github.com/googlecolab/google-colab-cli
+```
+
+From this repo:
+
+```bash
+chmod +x scripts/colab_cli.sh
+
+# Smoke test on T4 (~minutes)
+./scripts/colab_cli.sh smoke
+
+# One module, full trials
+./scripts/colab_cli.sh module 08
+
+# Full pipeline (long): 20 trials, compound, validate, download results/
+COLAB_GPU=A100 ./scripts/colab_cli.sh full
+
+# Tear down VM when done
+./scripts/colab_cli.sh stop
+```
+
+One-shot (provision → run → release):
+
+```bash
+colab run --gpu T4 scripts/colab_remote_run.py -- --fast --n-trials 1
+```
+
 ## Agent orchestration
 
 See `MODULE12_AGENT_PLAN.md` for the 24 parallel cloud-agent workstreams.
