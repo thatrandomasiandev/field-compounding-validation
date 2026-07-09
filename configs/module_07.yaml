@@ -1,0 +1,46 @@
+module_id: 7
+module_name: "Causal Visual Scene Understanding (Field)"
+loop_node: causal
+dgp:
+  class: "field_compounding.data.causal_field_dgp.CausalFieldDGP"
+  params:
+    n_train: 2000
+    n_test: 500
+    trace_path: null
+models:
+  - name: "S-Learner"
+    class: "cv_robotics.models.meta_learners.SLearner"
+    params:
+      n_estimators: 100
+  - name: "T-Learner"
+    class: "cv_robotics.models.meta_learners.TLearner"
+    params:
+      n_estimators: 100
+  - name: "X-Learner"
+    class: "cv_robotics.models.meta_learners.XLearner"
+    params:
+      n_estimators: 100
+  - name: "DR-Learner"
+    class: "cv_robotics.models.meta_learners.DRLearner"
+    params:
+      n_estimators: 100
+  - name: "R-Learner"
+    class: "cv_robotics.models.meta_learners.RLearner"
+    params:
+      n_estimators: 100
+  - name: "CausalBottleneck"
+    class: "cv_robotics.models.causal_bottleneck.CausalBottleneck"
+    params:
+      latent_dim: 5
+      lr: 1.0e-3
+      epochs: 100
+evaluation:
+  metrics: ["pehe", "ate_error", "disentanglement", "inferred_violation_gap"]
+  n_trials: 20
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+violation_sweep:
+  knob: "confounding_gamma"
+  values: [0.0, 0.25, 0.5, 0.75, 1.0]
+field:
+  trace_path: "observatory/traces/urc_synthetic.jsonl"
+  telemetry_features: ["gnss_drift", "false_positive_rate"]
