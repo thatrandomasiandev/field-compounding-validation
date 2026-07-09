@@ -1,0 +1,49 @@
+module_id: 13
+module_name: "Federated Field Learning"
+loop_node: federated
+dgp:
+  class: "field_compounding.data.federated_field_dgp.FederatedFieldDGP"
+  params:
+    n_clients: 5
+    n_total: 5000
+    d_features: 20
+    n_classes: 10
+    noise_sigma: 1.0
+    clip_norm: 1.0
+models:
+  - name: "FedAvg"
+    class: "cv_robotics.models.federated.FedAvg"
+    params:
+      n_rounds: 30
+      local_epochs: 5
+      lr: 0.01
+  - name: "FedProx"
+    class: "cv_robotics.models.federated.FedProx"
+    params:
+      n_rounds: 30
+      local_epochs: 5
+      lr: 0.01
+      mu: 0.01
+  - name: "DPSGD"
+    class: "cv_robotics.models.federated.DPSGD"
+    params:
+      clip_norm: 1.0
+      noise_sigma: 1.0
+      n_rounds: 30
+      lr: 0.01
+  - name: "SecureAgg"
+    class: "cv_robotics.models.federated.SecureAggregation"
+    params:
+      n_rounds: 30
+      lr: 0.01
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+violation_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+evaluation:
+  metrics: ["test_accuracy", "utility_gap", "epsilon", "convergence_round"]
+  n_trials: 20
+violation_sweep:
+  knob: "dirichlet_alpha"
+  values: [0.1, 0.3, 0.5, 1.0, 5.0]
+field:
+  trace_path: "observatory/traces/urc_synthetic.jsonl"
+  telemetry_features: ["gnss_drift", "false_positive_rate", "cmd_latency_ms", "battery_pct"]
