@@ -6,10 +6,15 @@ import os
 
 import torch
 
+_VALID_DEVICES = frozenset({"cpu", "cuda", "mps"})
+
 
 def get_device() -> torch.device:
-    override = os.environ.get("FIELD_COMPOUNDING_DEVICE")
+    """Return compute device, respecting ``FIELD_COMPOUNDING_DEVICE`` override."""
+    override = os.environ.get("FIELD_COMPOUNDING_DEVICE", "").lower().strip()
     if override:
+        if override not in _VALID_DEVICES:
+            raise ValueError(f"unsupported FIELD_COMPOUNDING_DEVICE: {override!r}")
         return torch.device(override)
     if torch.cuda.is_available():
         return torch.device("cuda")
