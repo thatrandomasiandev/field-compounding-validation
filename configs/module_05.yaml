@@ -1,0 +1,45 @@
+module_id: 5
+module_name: "Sim-to-Field Adaptation"
+loop_node: sim_to_real
+dgp:
+  class: "field_compounding.data.sim_to_field_dgp.SimToFieldDGP"
+  params:
+    n_source: 1000
+    n_target: 500
+    feature_dim: 10
+    n_classes: 4
+    trace_coupling: 1.0
+    trace_path: "observatory/traces/urc_sim_to_field_stub.jsonl"
+models:
+  - name: "LinearProbe"
+    class: "cv_robotics.models.peft.LinearProbe"
+    params:
+      lr: 1.0e-3
+      epochs: 50
+  - name: "LoRA"
+    class: "cv_robotics.models.peft.LoRA"
+    params:
+      rank: 4
+      alpha: 8.0
+      lr: 1.0e-3
+      epochs: 50
+  - name: "DoRA"
+    class: "cv_robotics.models.peft.DoRA"
+    params:
+      rank: 4
+      lr: 1.0e-3
+      epochs: 50
+  - name: "DANN"
+    class: "cv_robotics.models.peft.DANN"
+    params:
+      lambda_domain: 1.0
+      lr: 1.0e-3
+      epochs: 50
+evaluation:
+  metrics: ["source_accuracy", "target_accuracy", "domain_gap", "inferred_violation_mae"]
+  n_trials: 20
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+violation_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+violation_sweep:
+  knob: "domain_shift_delta"
+  values: [0.0, 0.5, 1.0, 1.5, 2.0]
