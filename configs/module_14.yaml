@@ -1,0 +1,34 @@
+module_id: 14
+module_name: "Formal Visual Safety (Field)"
+loop_node: safety
+dgp:
+  class: "field_compounding.data.safety_field_dgp.SafetyFieldDGP"
+  params:
+    n_obstacles: 3
+    n_traj_train: 200
+    n_traj_test: 50
+    p_catastrophe: 0.05
+    hj_grid_size: 50
+    hj_value_steps: 100
+models:
+  - name: "CBF"
+    class: "cv_robotics.models.cbf.CBFSafetyFilter"
+    params:
+      alpha: 1.0
+  - name: "HJReach"
+    class: "cv_robotics.models.hj_reachability.HJReachability"
+    params:
+      grid_size: 50
+      n_value_iters: 100
+      dt: 0.1
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+violation_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+evaluation:
+  metrics: ["safety_rate", "task_success", "safe_set_volume", "conservatism_ratio"]
+  n_trials: 20
+violation_sweep:
+  knob: "model_error"
+  values: [0.0, 0.25, 0.5, 0.75, 1.0]
+field:
+  trace_path: "observatory/traces/urc_synthetic.jsonl"
+  telemetry_features: ["gnss_drift", "false_positive_rate", "battery_pct"]
