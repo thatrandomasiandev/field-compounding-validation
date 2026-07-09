@@ -1,0 +1,51 @@
+module_id: 11
+module_name: "Uncertainty in Visual Perception (Field)"
+loop_node: uncertainty
+dgp:
+  class: "field_compounding.data.uncertainty_field_dgp.UncertaintyFieldDGP"
+  params:
+    n_samples: 3000
+    input_dim: 5
+    n_classes: 10
+    sigma_h: 1.0
+    trace_coupling: 1.0
+    field_gap: 0.15
+    trace_path: "observatory/traces/urc_uncertainty_stub.jsonl"
+models:
+  - name: "MCDropout"
+    class: "cv_robotics.models.bayesian_nn.MCDropout"
+    params:
+      hidden_dims: [256, 128, 64]
+      dropout_p: 0.1
+      n_forward_passes: 50
+      lr: 1.0e-3
+      epochs: 100
+  - name: "DeepEnsemble"
+    class: "cv_robotics.models.bayesian_nn.DeepEnsemble"
+    params:
+      n_members: 5
+      hidden_dims: [256, 128, 64]
+      lr: 1.0e-3
+      epochs: 100
+  - name: "TemperatureScaling"
+    class: "cv_robotics.models.calibration.TemperatureScaling"
+    params: {}
+  - name: "ConformalPredictor"
+    class: "cv_robotics.models.calibration.SplitConformalPredictor"
+    params:
+      alpha: 0.1
+  - name: "EnergyOOD"
+    class: "cv_robotics.models.calibration.EnergyOOD"
+    params:
+      temperature: 1.0
+evaluation:
+  metrics: ["rmse", "nll", "coverage", "interval_width", "ece", "ood_auroc", "inferred_violation_mae"]
+  n_trials: 20
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+violation_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+violation_sweep:
+  knob: "label_noise_p"
+  values: [0.0, 0.05, 0.1, 0.2, 0.3]
+field:
+  trace_path: "observatory/traces/urc_uncertainty_stub.jsonl"
+  telemetry_features: ["gnss_drift", "false_positive_rate"]
