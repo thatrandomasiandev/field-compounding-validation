@@ -1,0 +1,21 @@
+experiment: compound_field
+description: "Field compound experiment across modules 9–14"
+modules: [9, 10, 11, 12, 13, 14]
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+conditions:
+  A:
+    description: "Low violation (v=0.1) across modules"
+    violation_severity: 0.1
+  B:
+    description: "Medium violation (v=0.5) across modules"
+    violation_severity: 0.5
+  C:
+    description: "Heterogeneous violations"
+    violation_severities:
+      9: 0.5
+      10: 0.4
+      11: 0.3
+      12: 0.5
+      13: 0.8
+      14: 0.2
+n_trials: 20
