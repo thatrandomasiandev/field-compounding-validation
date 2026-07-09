@@ -1,0 +1,45 @@
+module_id: 8
+module_name: "Visual World Models (Field)"
+loop_node: world_model
+dgp:
+  class: "field_compounding.data.world_model_field_dgp.WorldModelFieldDGP"
+  params:
+    n_trajectories: 500
+    horizon: 50
+    dt: 0.02
+    field_gap: 0.2
+    trace_path: "observatory/traces/world_model_synthetic.jsonl"
+models:
+  - name: "EnsembleWM"
+    class: "cv_robotics.models.world_model.EnsembleWorldModel"
+    params:
+      n_members: 5
+      hidden_dim: 128
+      lr: 1.0e-3
+      epochs: 100
+  - name: "RSSM"
+    class: "cv_robotics.models.world_model.RSSM"
+    params:
+      latent_dim: 32
+      gru_hidden: 64
+      lr: 1.0e-3
+      epochs: 100
+  - name: "CausalWM"
+    class: "cv_robotics.models.world_model.CausalWorldModel"
+    params:
+      hidden_dim: 128
+      sparsity_lambda: 0.01
+      lr: 1.0e-3
+      epochs: 100
+evaluation:
+  metrics: ["transition_mse", "rollout_divergence", "shd", "inferred_violation_gap"]
+  n_trials: 20
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+violation_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+violation_sweep:
+  knob: "model_noise_sigma"
+  values: [0.01, 0.05, 0.1, 0.25, 0.5]
+field:
+  trace_path: "observatory/traces/world_model_synthetic.jsonl"
+  telemetry_features: ["cmd_latency_ms", "battery_pct", "gnss_drift"]
