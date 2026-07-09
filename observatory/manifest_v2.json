@@ -1,0 +1,411 @@
+{
+  "version": "2.0.0",
+  "generated_at": "2026-07-09T00:29:35Z",
+  "source_results_hash": "725c546b990dd1b4",
+  "module_ids": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "modules": [
+    {
+      "id": 3,
+      "section": 3,
+      "name": "Module 3",
+      "loop_node": "scene_repr",
+      "psi": 0.0,
+      "sweep": {
+        "knob_values": [],
+        "violation_severity": [],
+        "normalized_score": []
+      },
+      "trace_source": "urc"
+    },
+    {
+      "id": 4,
+      "section": 4,
+      "name": "Module 4",
+      "loop_node": "visual_ssl",
+      "psi": 0.0,
+      "sweep": {
+        "knob_values": [],
+        "violation_severity": [],
+        "normalized_score": []
+      },
+      "trace_source": "urc"
+    },
+    {
+      "id": 5,
+      "section": 5,
+      "name": "Module 5",
+      "loop_node": "sim_to_field",
+      "psi": 0.0,
+      "sweep": {
+        "knob_values": [],
+        "violation_severity": [],
+        "normalized_score": []
+      },
+      "trace_source": "urc"
+    },
+    {
+      "id": 6,
+      "section": 6,
+      "name": "Module 6",
+      "loop_node": "visuomotor",
+      "psi": 0.0,
+      "sweep": {
+        "knob_values": [],
+        "violation_severity": [],
+        "normalized_score": []
+      },
+      "trace_source": "urc"
+    },
+    {
+      "id": 7,
+      "section": 7,
+      "name": "Module 7",
+      "loop_node": "causal",
+      "psi": 0.0,
+      "sweep": {
+        "knob_values": [],
+        "violation_severity": [],
+        "normalized_score": []
+      },
+      "trace_source": "urc"
+    },
+    {
+      "id": 8,
+      "section": 8,
+      "name": "Module 8",
+      "loop_node": "world_model",
+      "psi": 0.0,
+      "sweep": {
+        "knob_values": [],
+        "violation_severity": [],
+        "normalized_score": []
+      },
+      "trace_source": "urc"
+    },
+    {
+      "id": 9,
+      "section": 9,
+      "name": "Module 9",
+      "loop_node": "equivariant",
+      "psi": 0.0,
+      "sweep": {
+        "knob_values": [],
+        "violation_severity": [],
+        "normalized_score": []
+      },
+      "trace_source": "urc"
+    },
+    {
+      "id": 10,
+      "section": 10,
+      "name": "Module 10",
+      "loop_node": "scene_graph",
+      "psi": 0.0,
+      "sweep": {
+        "knob_values": [],
+        "violation_severity": [],
+        "normalized_score": []
+      },
+      "trace_source": "urc"
+    },
+    {
+      "id": 11,
+      "section": 11,
+      "name": "Module 11",
+      "loop_node": "uncertainty",
+      "psi": 0.0,
+      "sweep": {
+        "knob_values": [],
+        "violation_severity": [],
+        "normalized_score": []
+      },
+      "trace_source": "urc"
+    },
+    {
+      "id": 12,
+      "section": 12,
+      "name": "Module 12",
+      "loop_node": "neurosymbolic",
+      "psi": 0.0,
+      "sweep": {
+        "knob_values": [],
+        "violation_severity": [],
+        "normalized_score": []
+      },
+      "trace_source": "urc"
+    },
+    {
+      "id": 13,
+      "section": 13,
+      "name": "Module 13",
+      "loop_node": "federated",
+      "psi": 0.0,
+      "sweep": {
+        "knob_values": [],
+        "violation_severity": [],
+        "normalized_score": []
+      },
+      "trace_source": "urc"
+    },
+    {
+      "id": 14,
+      "section": 14,
+      "name": "Module 14",
+      "loop_node": "safety",
+      "psi": 0.0,
+      "sweep": {
+        "knob_values": [],
+        "violation_severity": [],
+        "normalized_score": []
+      },
+      "trace_source": "urc"
+    }
+  ],
+  "psi": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "coupling": {
+    "gamma": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "module_ids": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "transferred": true
+  },
+  "module11_import": {
+    "source": "stub",
+    "module_ids": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  "field_traces": [
+    {
+      "path": "observatory/traces/urc_synthetic.jsonl",
+      "venue": "URC",
+      "environment": "outdoor",
+      "row_count": 0
+    }
+  ],
+  "partial_observability": {
+    "estimation_mae": null,
+    "calibration_bins": 10
+  },
+  "conditions": {},
+  "pinned": {},
+  "formula": "R_compound >= sum_k v_hat_k * psi_k + sum_{k<l} gamma_{k,l} * v_hat_k * v_hat_l",
+  "paper": "paper12_field_compounding.tex"
+}

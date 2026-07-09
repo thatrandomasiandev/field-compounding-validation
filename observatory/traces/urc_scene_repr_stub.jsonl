@@ -1,0 +1,6 @@
+{"false_positive_rate": 0.04, "gnss_drift": 1.2, "loop_node": "scene_repr", "recovery": true, "timestamp": "2025-05-18T14:02:11Z", "violation_severity": 0.31}
+{"false_positive_rate": 0.05, "gnss_drift": 2.1, "loop_node": "scene_repr", "recovery": true, "timestamp": "2025-05-18T14:12:33Z", "violation_severity": 0.38}
+{"false_positive_rate": 0.06, "gnss_drift": 3.4, "loop_node": "scene_repr", "recovery": true, "timestamp": "2025-05-18T14:22:55Z", "violation_severity": 0.45}
+{"false_positive_rate": 0.08, "gnss_drift": 4.8, "loop_node": "scene_repr", "recovery": false, "timestamp": "2025-05-18T14:35:02Z", "violation_severity": 0.52}
+{"false_positive_rate": 0.09, "gnss_drift": 6.1, "loop_node": "scene_repr", "recovery": false, "timestamp": "2025-05-18T14:48:10Z", "violation_severity": 0.61}
+{"false_positive_rate": 0.11, "gnss_drift": 7.5, "loop_node": "scene_repr", "recovery": false, "timestamp": "2025-05-18T15:01:27Z", "violation_severity": 0.72}
