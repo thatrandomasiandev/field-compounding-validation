@@ -13,21 +13,21 @@ dgp:
     n_formulas: 6
 models:
   - name: "SymbolicSolver"
-    class: "field_compounding.models.neurosymbolic_field.SymbolicSolverField"
+    class: "cv_robotics.models.neurosymbolic.SymbolicSolver"
     params: {}
   - name: "BeamSearch"
-    class: "field_compounding.models.neurosymbolic_field.BeamSearchSynthesizerField"
+    class: "cv_robotics.models.neurosymbolic.BeamSearchSynthesizer"
     params:
       beam_width: 100
       max_depth: 5
   - name: "DiffReasoner"
-    class: "field_compounding.models.neurosymbolic_field.DifferentiableReasonerField"
+    class: "cv_robotics.models.neurosymbolic.DifferentiableReasoner"
     params:
       semantics: "product"
       lr: 0.01
       n_steps: 500
   - name: "NTP"
-    class: "field_compounding.models.neurosymbolic_field.NeuralTheoremProverField"
+    class: "cv_robotics.models.neurosymbolic.NeuralTheoremProver"
     params:
       embed_dim: 32
       tau: 1.0

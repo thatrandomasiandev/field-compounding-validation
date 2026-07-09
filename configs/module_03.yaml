@@ -14,7 +14,7 @@ dgp:
     n_scenes_test: 5
 models:
   - name: "NeRF"
-    class: "field_compounding.models.nerf_field.NeRFField"
+    class: "cv_robotics.models.nerf.NeRF"
     params:
       hidden_dim: 64
       n_layers: 2
@@ -22,13 +22,13 @@ models:
       lr: 1.0e-3
       epochs: 100
   - name: "3DGS"
-    class: "field_compounding.models.gaussian_splatting_field.GaussianSplattingField"
+    class: "cv_robotics.models.gaussian_splatting.GaussianSplatting"
     params:
       n_gaussians: 200
       lr: 1.0e-3
       epochs: 100
   - name: "FeatureField"
-    class: "field_compounding.models.feature_fields_field.FeatureField"
+    class: "cv_robotics.models.feature_fields.FeatureFieldDistillation"
     params:
       feature_dim: 32
       lr: 1.0e-3
