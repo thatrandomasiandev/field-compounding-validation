@@ -1,0 +1,13 @@
+module_id: 7
+module_name: Smoke
+dgp:
+ class: tests.fixtures.smoke_dgp.SmokeFieldDGP
+ params: {n_train: 32, n_test: 16, feature_dim: 4}
+models:
+ - {name: Dummy, class: tests.fixtures.smoke_dgp.SmokeFieldDGP, params: {}}
+evaluation:
+ metrics: [accuracy]
+ seeds: [0,1,2]
+violation_sweep:
+ knob: confounding_gamma
+ values: [0.0, 1.0]

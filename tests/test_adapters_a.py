@@ -234,5 +234,5 @@ class TestRunTrial:
         assert out["field_loop_node"] == "world_model"
 
     def test_run_trial_unsupported_module_raises(self) -> None:
-        with pytest.raises(NotImplementedError, match="Agent 23"):
-            run_trial(MagicMock(), _ctx(9), BenchmarkData({}, {}, {}))
+        with pytest.raises(ValueError, match="unsupported module_id=99"):
+            run_trial(MagicMock(), _ctx(99), BenchmarkData({}, {}, {}))

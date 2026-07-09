@@ -235,3 +235,39 @@ def dominant_field_couplings(
             if abs(value) >= min_abs:
                 pairs.append((nodes[i], nodes[j], value))
     return sorted(pairs, key=lambda item: abs(item[2]), reverse=True)
+
+
+def estimate_full_coupling_matrix(
+    all_results: dict[int, dict[str, np.ndarray]],
+    metric_key: str = "normalized_score",
+    n_bootstrap: int = 1000,
+    seed: int = 42,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Estimate the full K x K coupling matrix from module sweep results."""
+    from field_compounding.theory.compound_bound import estimate_gamma_kl
+
+    module_ids = sorted(all_results.keys())
+    k = len(module_ids)
+    gamma = np.zeros((k, k))
+    ci_lower = np.zeros((k, k))
+    ci_upper = np.zeros((k, k))
+
+    for i, k_id in enumerate(module_ids):
+        for j, l_id in enumerate(module_ids):
+            if i == j:
+                continue
+            g, cl, cu = estimate_gamma_kl(
+                all_results[k_id],
+                all_results[l_id],
+                metric_key=metric_key,
+                n_bootstrap=n_bootstrap,
+                seed=seed + i * k + j,
+            )
+            gamma[i, j] = g
+            ci_lower[i, j] = cl
+            ci_upper[i, j] = cu
+
+    gamma = (gamma + gamma.T) / 2
+    ci_lower = np.minimum(ci_lower, ci_lower.T)
+    ci_upper = np.maximum(ci_upper, ci_upper.T)
+    return gamma, ci_lower, ci_upper
