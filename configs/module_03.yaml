@@ -1,0 +1,43 @@
+module_id: 3
+module_name: "3D Scene Understanding (Field)"
+loop_node: scene_repr
+dgp:
+  class: "field_compounding.data.scene_repr_field_dgp.SceneReprFieldDGP"
+  params:
+    trace_path: "observatory/traces/urc_scene_repr_stub.jsonl"
+    gnss_drift_scale: 1.0
+    n_objects: 5
+    resolution: 64
+    feature_dim: 32
+    n_grasp_candidates: 50
+    n_scenes_train: 20
+    n_scenes_test: 5
+models:
+  - name: "NeRF"
+    class: "field_compounding.models.nerf_field.NeRFField"
+    params:
+      hidden_dim: 64
+      n_layers: 2
+      n_samples: 64
+      lr: 1.0e-3
+      epochs: 100
+  - name: "3DGS"
+    class: "field_compounding.models.gaussian_splatting_field.GaussianSplattingField"
+    params:
+      n_gaussians: 200
+      lr: 1.0e-3
+      epochs: 100
+  - name: "FeatureField"
+    class: "field_compounding.models.feature_fields_field.FeatureField"
+    params:
+      feature_dim: 32
+      lr: 1.0e-3
+      epochs: 50
+evaluation:
+  metrics: ["psnr", "rmse", "feature_accuracy"]
+  n_trials: 20
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+violation_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+violation_sweep:
+  knob: "violation_severity"
+  values: [0.0, 0.25, 0.5, 0.75, 1.0]
