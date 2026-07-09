@@ -822,22 +822,89 @@ def _eval_module_10(model: Any, ctx: TrialContext, data: BenchmarkData) -> dict[
     return _add_normalized(metrics, "auc", 0.95, 0.5, metadata=meta)
 
 
+def _train_regression_loop(model: Any, X: np.ndarray, Y: np.ndarray, epochs: int) -> None:
+    n = len(X)
+    for _ in range(epochs):
+        perm = np.random.permutation(n)
+        for i in range(0, n, 256):
+            idx = perm[i : i + 256]
+            model.train_step(X[idx], Y[idx])
+
+
 def _eval_module_11(model: Any, ctx: TrialContext, data: BenchmarkData) -> dict[str, float]:
-    meta = data.metadata
-    train, test = data.train, data.test
+    train, test, meta = data.train, data.test, data.metadata
+    name = ctx.model_name
+    epochs = 5 if ctx.fast else 30
     noise = _field_noise(meta, scale=0.1)
 
-    if hasattr(model, "train_step"):
-        for _ in range(3 if ctx.fast else 5):
-            idx = np.arange(len(train["X_regression"]))
-            model.train_step(train["X_regression"], train["Y_regression"])
-    preds = model.predict(test["X_regression"]) if hasattr(model, "predict") else test["Y_regression"]
-    if isinstance(preds, dict):
-        rmse = _metric_value(preds, "rmse", 0.3)
-    else:
-        rmse = float(np.sqrt(np.mean((preds - test["Y_regression"]) ** 2)))
-    rmse += noise
-    return _add_normalized({"rmse": rmse, "coverage": max(0.0, 0.95 - noise)}, "rmse", 0.2, 2.0, metadata=meta)
+    if name == "MCDropout":
+        _train_regression_loop(model, train["X_regression"], train["Y_regression"], epochs)
+        from cv_robotics.models.bayesian_nn import compute_regression_metrics
+
+        preds = model.predict(test["X_regression"])
+        metrics = compute_regression_metrics(test["Y_regression"], preds)
+        metrics["coverage"] = metrics.pop("picp", 0.0)
+        metrics["interval_width"] = metrics.pop("mpiw", 0.0)
+        metrics["rmse"] = float(metrics.get("rmse", 0.3)) + noise
+        return _add_normalized(metrics, "rmse", 0.2, 2.0, metadata=meta)
+
+    if name == "DeepEnsemble":
+        for m in range(model.M):
+            for _ in range(epochs):
+                perm = np.random.permutation(len(train["X_regression"]))
+                for i in range(0, len(perm), 256):
+                    idx = perm[i : i + 256]
+                    model.train_step(train["X_regression"][idx], train["Y_regression"][idx], m)
+        from cv_robotics.models.bayesian_nn import compute_regression_metrics
+
+        preds = model.predict(test["X_regression"])
+        metrics = compute_regression_metrics(test["Y_regression"], preds)
+        metrics["coverage"] = metrics.pop("picp", 0.0)
+        metrics["interval_width"] = metrics.pop("mpiw", 0.0)
+        metrics["rmse"] = float(metrics.get("rmse", 0.3)) + noise
+        return _add_normalized(metrics, "rmse", 0.2, 2.0, metadata=meta)
+
+    from sklearn.linear_model import LogisticRegression
+
+    clf = LogisticRegression(max_iter=500)
+    clf.fit(train["X_classification"], train["labels"])
+    logits_val = np.log(clf.predict_proba(test["X_val_classification"]) + 1e-10)
+    logits_test = np.log(clf.predict_proba(test["X_classification"]) + 1e-10)
+
+    if name == "TemperatureScaling":
+        ece_before = model.expected_calibration_error(
+            np.exp(logits_val - logits_val.max(axis=1, keepdims=True)),
+            test["labels_val"],
+        )
+        model.fit(logits_val, test["labels_val"])
+        probs = model.calibrate(logits_test)
+        ece_after = float(model.expected_calibration_error(probs, test["labels"])) + noise
+        return _add_normalized(
+            {"ece": ece_after, "ece_before": ece_before, "coverage": max(0.0, 1.0 - ece_after)},
+            "ece",
+            0.02,
+            0.2,
+            metadata=meta,
+        )
+
+    if name == "ConformalPredictor":
+        mu_cal = clf.predict(train["X_calibration"])
+        mu_test = clf.predict(test["X_regression"])
+        model.fit(train["Y_calibration"], mu_cal)
+        metrics = model.evaluate(test["Y_regression"], mu_test)
+        coverage = float(metrics.get("coverage", 0.0)) - noise
+        return _add_normalized(
+            {"coverage": max(0.0, coverage), "interval_width": metrics.get("mean_width", 0.0)},
+            "coverage",
+            0.95,
+            0.5,
+            metadata=meta,
+        )
+
+    model.fit_threshold(logits_val, test["labels_val"], np.zeros(len(test["labels_val"]), dtype=bool))
+    metrics = model.evaluate(logits_test, test["ood_mask"])
+    metrics["ood_auroc"] = float(metrics.pop("auroc", 0.5)) - noise
+    return _add_normalized(metrics, "ood_auroc", 0.95, 0.5, metadata=meta)
 
 
 def _decode_facts(pred_names: list[str], fact_array: np.ndarray) -> set[tuple[str, tuple[int, ...]]]:
