@@ -1,18 +1,17 @@
-"""Field trace ingest: schema, loaders, and replay sessions."""
+"""Trace ingest adapters for field validation benchmarks."""
 
-from field_compounding.ingest.replay import ReplayBatch, ReplaySession
-from field_compounding.ingest.schema import (
-    VALID_LOOP_NODES,
-    TraceRecord,
-    load_traces,
-    save_traces,
+from field_compounding.ingest.urc import (
+    URCFieldLogEntry,
+    aggregate_urc_stats,
+    generate_synthetic_urc_traces,
+    load_urc_trace,
+    save_urc_trace,
 )
 
 __all__ = [
-    "VALID_LOOP_NODES",
-    "ReplayBatch",
-    "ReplaySession",
-    "TraceRecord",
-    "load_traces",
-    "save_traces",
+    "URCFieldLogEntry",
+    "aggregate_urc_stats",
+    "generate_synthetic_urc_traces",
+    "load_urc_trace",
+    "save_urc_trace",
 ]
