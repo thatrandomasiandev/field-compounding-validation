@@ -1,31 +1,30 @@
-# Launching 24 Cloud Agents
+# Launch 24 Cloud Agents (Module 12)
 
-Cloud agents require **exactly one git remote on the workspace root**. This multi-root Cursor workspace (Curriculum Vitae + 20+ folders) blocks `environment: "cloud"`.
+Local agents stop when your laptop sleeps. **Cloud agents run on Cursor VMs.**
 
-## Fix (pick one)
+## Why in-chat cloud launch failed
 
-1. **Open Module 12 as sole workspace:** File → Open Folder → `12-field-compounding-validation`
-2. Then in chat: *"Launch all 24 agents from MODULE12_AGENT_PLAN.md as cloud agents"*
+This multi-root workspace blocks `environment: "cloud"` in the Task tool. Use the **API** or **Agents Window** in a single-repo folder instead.
 
-Or:
-
-3. Open `Machine Learning v1` as sole workspace **if** you add a git remote at that root (not recommended; modules are separate repos).
-
-## Repo
-
-- GitHub: https://github.com/thatrandomasiandev/field-compounding-validation
-- Plan: `MODULE12_AGENT_PLAN.md` (24 workstreams, branches `agent/01-*` … `agent/24-*`)
-
-## Current fallback
-
-24 **local background agents** were launched from the multi-root workspace (same prompts, same branches).
-
-## After agents finish
+## Option A — API (recommended)
 
 ```bash
-git fetch --all
-# merge in order from MODULE12_AGENT_PLAN.md
-git checkout main && git merge agent/01-foundation
-# … through agent/24-paper-observatory
-./scripts/run_all_and_validate.sh
+cd "/Users/joshuaterranova/Desktop/Coding Projects/Machine Learning v1/12-field-compounding-validation"
+export CURSOR_API_KEY='key_...'   # https://cursor.com/dashboard/api
+python3 scripts/launch_cloud_agents.py --from 3   # skip 01-02 already pushed
 ```
+
+Monitor at https://cursor.com/agents
+
+**Prerequisites:** GitHub integration with read-write on `thatrandomasiandev/field-compounding-validation`.
+
+## Option B — IDE
+
+1. File → Open Folder → `12-field-compounding-validation` only
+2. Cmd+Shift+P → Open Agents Window → Cloud
+3. One prompt per agent from `MODULE12_AGENT_PLAN.md`
+
+## Done locally (can skip in cloud)
+
+- `agent/01-foundation` — [PR #1](https://github.com/thatrandomasiandev/field-compounding-validation/pull/1)
+- `agent/02-utils` — pushed
