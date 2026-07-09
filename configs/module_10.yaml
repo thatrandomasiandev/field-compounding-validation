@@ -1,0 +1,39 @@
+module_id: 10
+module_name: "Scene Graph and Visual Relational Reasoning (Field)"
+loop_node: scene_graph
+dgp:
+  class: "field_compounding.data.scene_graph_field_dgp.SceneGraphFieldDGP"
+  params:
+    n_nodes: 200
+    m: 2
+    T: 12
+    feature_dim: 32
+    n_edge_types: 4
+    trace_blend: 0.35
+models:
+  - name: "GCN"
+    class: "cv_robotics.models.gnn.GCN"
+    params:
+      hidden_dim: 64
+      n_layers: 2
+      lr: 1.0e-3
+      epochs: 100
+  - name: "RollingGCN"
+    class: "cv_robotics.models.gnn.RollingGCN"
+    params:
+      hidden_dim: 64
+      gru_hidden: 64
+      lr: 1.0e-3
+      epochs: 100
+  - name: "GIN"
+    class: "cv_robotics.models.gnn.GIN"
+    params:
+      hidden_dim: 64
+      n_layers: 3
+      lr: 1.0e-3
+      epochs: 100
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+violation_levels: [0.0, 0.1, 0.2, 0.3, 0.5]
+evaluation:
+  metrics: ["auc", "average_precision", "hits_at_10", "wl_detection_rate"]
+  n_trials: 20
