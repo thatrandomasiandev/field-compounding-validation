@@ -1,0 +1,55 @@
+module_id: 4
+loop_node: visual_ssl
+module_name: "Visual Self-Supervised Learning"
+dgp:
+  class: "field_compounding.data.visual_ssl_field_dgp.VisualSSLFieldDGP"
+  params:
+    n_samples: 3000
+    n_clusters: 8
+    feature_dim: 10
+    n_point_clouds: 1000
+    pts_per_cloud: 512
+    temporal_length: 20
+    trace_coupling: 1.0
+models:
+  - name: "SimCLR"
+    class: "cv_robotics.models.ssl.SimCLR"
+    params:
+      temperature: 0.1
+      proj_dim: 32
+      lr: 1.0e-3
+      epochs: 100
+  - name: "VICReg"
+    class: "cv_robotics.models.ssl.VICReg"
+    params:
+      lambda_var: 25.0
+      lambda_inv: 25.0
+      lambda_cov: 1.0
+      lr: 1.0e-3
+      epochs: 100
+  - name: "MAE"
+    class: "cv_robotics.models.ssl.MAE"
+    params:
+      mask_ratio: 0.5
+      lr: 1.0e-3
+      epochs: 100
+  - name: "DINOv2"
+    class: "cv_robotics.models.ssl.DINOv2"
+    params:
+      ema_momentum: 0.996
+      lr: 1.0e-3
+      epochs: 100
+  - name: "PointMAE"
+    class: "cv_robotics.models.ssl.PointMAE"
+    params:
+      mask_ratio: 0.6
+      lr: 1.0e-3
+      epochs: 100
+evaluation:
+  metrics: ["linear_probe_accuracy", "nmi", "silhouette"]
+  n_trials: 20
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+violation_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+violation_sweep:
+  knob: "n_labeled"
+  values: [100, 500, 1000, 2000, 3000]
