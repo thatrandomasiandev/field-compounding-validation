@@ -1,0 +1,19 @@
+{
+  "title": "Manifest v2",
+  "type": "object",
+  "required": [
+    "version",
+    "field_traces",
+    "module11_import",
+    "partial_observability",
+    "modules",
+    "coupling",
+    "conditions",
+    "pinned"
+  ],
+  "properties": {
+    "version": {
+      "const": "2.0.0"
+    }
+  }
+}
