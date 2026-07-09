@@ -1,0 +1,39 @@
+module_id: 6
+module_name: "Visuomotor Policies (Field)"
+loop_node: visuomotor
+dgp:
+  class: "field_compounding.data.visuomotor_field_dgp.VisuomotorFieldDGP"
+  params:
+    n_trajectories: 500
+    horizon: 50
+    n_modes: 3
+    field_gap: 0.25
+    trace_path: "observatory/traces/visuomotor_synthetic.jsonl"
+models:
+  - name: "DiffusionPolicy"
+    class: "cv_robotics.models.diffusion_policy.DiffusionPolicy"
+    params: {n_diffusion_steps: 100, hidden_dim: 256, lr: 1.0e-3, epochs: 100}
+  - name: "FlowMatching"
+    class: "cv_robotics.models.flow_policy.FlowMatchingPolicy"
+    params: {n_euler_steps: 10, hidden_dim: 256, lr: 1.0e-3, epochs: 100}
+  - name: "OneStepFlow"
+    class: "cv_robotics.models.flow_policy.OneStepFlowPolicy"
+    params: {hidden_dim: 256, lr: 1.0e-3, epochs: 100}
+  - name: "BC"
+    class: "cv_robotics.models.offline_rl.BehavioralCloning"
+    params: {hidden_dim: 256, lr: 1.0e-3, epochs: 100}
+  - name: "CQL"
+    class: "cv_robotics.models.offline_rl.CQL"
+    params: {alpha: 1.0, hidden_dim: 256, lr: 1.0e-3, epochs: 100}
+  - name: "IQL"
+    class: "cv_robotics.models.offline_rl.IQL"
+    params: {expectile: 0.7, hidden_dim: 256, lr: 1.0e-3, epochs: 100}
+evaluation:
+  metrics: ["normalized_score", "mode_recovery_rate", "mse"]
+  n_trials: 20
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+violation_levels: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+violation_sweep:
+  knob: "coverage_beta"
+  values: [0.3, 0.5, 0.7, 0.85, 1.0]

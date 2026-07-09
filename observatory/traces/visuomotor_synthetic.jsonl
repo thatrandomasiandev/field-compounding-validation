@@ -1,0 +1,5 @@
+{"cmd_latency_ms": 62.0, "false_positive_rate": 0.09, "gnss_drift": 3.1, "loop_node": "visuomotor", "recovery": true, "timestamp": "2025-05-18T15:01:27Z", "violation_severity": 0.47}
+{"cmd_latency_ms": 78.5, "false_positive_rate": 0.11, "gnss_drift": 4.2, "loop_node": "visuomotor", "recovery": false, "timestamp": "2025-05-19T09:14:03Z", "violation_severity": 0.55}
+{"cmd_latency_ms": 51.0, "false_positive_rate": 0.07, "gnss_drift": 2.6, "loop_node": "visuomotor", "recovery": true, "timestamp": "2025-05-19T11:42:18Z", "violation_severity": 0.38}
+{"cmd_latency_ms": 95.0, "false_positive_rate": 0.14, "gnss_drift": 5.8, "loop_node": "visuomotor", "recovery": false, "timestamp": "2025-05-20T08:03:51Z", "violation_severity": 0.68}
+{"cmd_latency_ms": 44.0, "false_positive_rate": 0.06, "gnss_drift": 2.1, "loop_node": "visuomotor", "recovery": true, "timestamp": "2025-05-20T16:27:09Z", "violation_severity": 0.32}
